@@ -7,26 +7,21 @@ import { transformGuard } from './utils/transformGuard';
 import { rad } from './utils/utils';
 import { Vector } from './utils/Vector';
 
-// 💡 1. 몽나와 달구 이미지를 배열에 담아 무한 로테이션 시킵니다!
-// 지금은 2개지만, 나중에 사진을 더 추가하고 싶으시면 아래 배열에 10개든 20개든 줄줄이 적어주시면 됩니다.
+// 💡 번역기(Parcel)가 이미지 파일을 완벽하게 인식해서 끌고 오도록 'new URL' 방식으로 수정
+// (주의: 깃허브에서 파일 위치가 src 폴더 '안'의 assets라면 ../ 대신 ./ 로 적어주세요)
 const skinUrls = [
-  'assets/mongna1.png',
-  'assets/mongna2.png',
-  'assets/mongna3.png',
-  'assets/mongna4.png',
-  'assets/mongna5.png',
-  'assets/dalgu1.png',
-  'assets/dalgu2.png',
-  'assets/dalgu3.png',
-  'assets/dalgu4.png',
-  'assets/dalgu5.png',
+  new URL('../assets/mongna1.png', import.meta.url).href,
+  new URL('../assets/mongna2.png', import.meta.url).href,
+  new URL('../assets/mongna3.png', import.meta.url).href,
+  new URL('../assets/mongna4.png', import.meta.url).href,
+  new URL('../assets/mongna5.png', import.meta.url).href,
+  new URL('../assets/dalgu1.png', import.meta.url).href,
+  new URL('../assets/dalgu2.png', import.meta.url).href,
+  new URL('../assets/dalgu3.png', import.meta.url).href,
+  new URL('../assets/dalgu4.png', import.meta.url).href,
+  new URL('../assets/dalgu5.png', import.meta.url).href,
 ];
-  // 👇 나중에 이미지가 더 생기면 아래처럼 쭉쭉 추가하세요! (최대 제한 없음)
-  // 'assets/mongna-smile.png',
-  // 'assets/dalgu-angry.png',
-  // 'assets/mongna-sad.png',
 
-// 위에서 적은 주소들을 실제 이미지로 변환해 두는 작업
 const skins = skinUrls.map(url => {
   const img = new Image();
   img.src = url;
@@ -34,6 +29,7 @@ const skins = skinUrls.map(url => {
 });
 
 export class Marble {
+// ... (이 아래 내용인 export class Marble 부터는 기존과 동일하게 둡니다)
   type = 'marble' as const;
   name: string = '';
   size: number = 0.5;
