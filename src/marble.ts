@@ -10,13 +10,21 @@ import { Vector } from './utils/Vector';
 // 💡 1. 몽나와 달구 이미지를 배열에 담아 무한 로테이션 시킵니다!
 // 지금은 2개지만, 나중에 사진을 더 추가하고 싶으시면 아래 배열에 10개든 20개든 줄줄이 적어주시면 됩니다.
 const skinUrls = [
-  'assets/mongna-ball.png', // 1번 공
-  'assets/dalgu-ball.png',  // 2번 공
+  'assets/mongna1.png',
+  'assets/mongna2.png',
+  'assets/mongna3.png',
+  'assets/mongna4.png',
+  'assets/mongna5.png',
+  'assets/dalgu1.png',
+  'assets/dalgu2.png',
+  'assets/dalgu3.png',
+  'assets/dalgu4.png',
+  'assets/dalgu5.png',
+];
   // 👇 나중에 이미지가 더 생기면 아래처럼 쭉쭉 추가하세요! (최대 제한 없음)
   // 'assets/mongna-smile.png',
   // 'assets/dalgu-angry.png',
   // 'assets/mongna-sad.png',
-];
 
 // 위에서 적은 주소들을 실제 이미지로 변환해 두는 작업
 const skins = skinUrls.map(url => {
