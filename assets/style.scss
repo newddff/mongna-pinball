@@ -646,56 +646,71 @@ div.toast {
 }
 
 /* =========================================================
-   🕊️ 몽나 시그니처 테마 (라벤더 & 화이트 + 레이아웃 분리)
+   🕊️ 몽나 시그니처 테마 (라벤더 & 화이트 안전 복구 버전)
    ========================================================= */
 
-/* 1. 배경: 깨끗한 화이트톤에 아주 연한 라벤더 도트 패턴 */
+/* 1. 배경: 깨끗한 화이트톤에 아주 연한 라벤더 도트 */
 html:not(.dark) body {
   background-color: #fcfbfe !important; 
   background-image: radial-gradient(#ede9fe 2px, transparent 2px) !important;
   background-size: 24px 24px !important;
 }
 
-/* 2. 레이아웃: 두 개의 화이트 카드로 분리하고 좌우 반전 */
+/* 2. 설정창 전체 뼈대 복구 (하나의 통일된 고급스러운 카드로 묶기) */
 html:not(.dark) #settings {
-  display: flex !important;
-  flex-direction: row-reverse !important; 
-  gap: 24px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 20px !important;
-  max-width: 1100px !important;
-}
-
-html:not(.dark) #settings > .left,
-html:not(.dark) #settings > .right {
-  background: #ffffff !important; /* 순백의 카드 */
-  border-radius: 28px !important;
-  padding: 30px !important;
-  box-shadow: 0 12px 40px rgba(177, 156, 217, 0.15) !important; /* 은은한 라벤더 그림자 */
+  display: block !important; /* 억지로 쪼개던 속성 제거 */
+  background: #ffffff !important;
   border: 1px solid #f3f0ff !important;
+  border-radius: 24px !important;
+  padding: 24px !important;
+  box-shadow: 0 12px 40px rgba(177, 156, 217, 0.15) !important;
+  max-width: 650px !important; 
 }
 
-html:not(.dark) #settings > .left {
-  flex: 1.2 !important;
-  display: flex;
-  flex-direction: column;
-}
-html:not(.dark) #settings > .right {
-  flex: 0.8 !important;
+/* 3. 상단 맵/옵션 선택 영역 정상화 */
+html:not(.dark) .map-picker select,
+html:not(.dark) .row-toggles {
+  background-color: #fcfbfe !important;
+  border: 1px solid #e9d5ff !important;
+  border-radius: 12px !important;
+  color: #7c3aed !important;
+  font-weight: 700 !important;
 }
 
-/* 3. 텍스트 입력창: 화이트 바탕에 라벤더 점선 */
+/* 당첨 순위 선택 버튼 (첫번째, 마지막) */
+html:not(.dark) .btn-group {
+  background-color: #f5f3ff !important;
+  border-radius: 10px !important;
+  padding: 4px !important;
+}
+
+html:not(.dark) .btn-group button,
+html:not(.dark) .btn-group input {
+  color: #a78bfa !important;
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+  border: none !important;
+}
+
+html:not(.dark) .btn-group button.active {
+  background-color: #b19cd9 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 8px rgba(177, 156, 217, 0.3) !important;
+}
+
+/* 4. 텍스트 입력창: 화이트 바탕에 라벤더 점선 */
 html:not(.dark) #in_names {
   background-color: #ffffff !important;
   border: 2px dashed #c4b5fd !important; 
-  border-radius: 16px !important;
+  border-radius: 12px !important;
   color: #7c3aed !important;
   font-weight: 700 !important;
   font-size: 16px !important;
-  padding: 20px !important;
-  min-height: 200px !important;
+  padding: 16px !important;
+  min-height: 180px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 16px !important;
   
   /* 💡 라벤더색 몽나 워터마크 */
   background-image: url('https://via.placeholder.com/150/ffffff/c4b5fd?text=Mongna'); 
@@ -705,83 +720,53 @@ html:not(.dark) #in_names {
 }
 
 html:not(.dark) #in_names:focus {
-  border: 2px solid #b19cd9 !important; /* 포커스 시 클래식 라벤더 선 */
+  border: 2px solid #b19cd9 !important;
   background-image: none !important; 
   outline: none !important;
   box-shadow: 0 0 0 4px rgba(177, 156, 217, 0.15) !important;
 }
 
-/* 4. 버튼 영역 및 시작 버튼 (라벤더 포인트) */
+/* 5. 꼬여버린 하단 바 및 버튼 완벽 정렬 */
 html:not(.dark) .actions {
   display: flex !important;
-  flex-wrap: wrap !important;
   gap: 12px !important;
-  margin-top: 24px !important;
+  margin-top: 20px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
 }
 
-/* 🚀 몽나 시그니처 라벤더 스타트 버튼 */
+/* 🚀 몽나 시그니처 시작 버튼 (가로로 넓게 꽉 채우기) */
 html:not(.dark) #btnStart {
-  flex: 1 1 100% !important; 
-  background: #b19cd9 !important; /* 부드러운 라벤더 컬러 */
-  color: #ffffff !important; /* 화이트 텍스트 */
-  padding: 18px !important;
-  border-radius: 18px !important;
-  font-size: 20px !important;
+  flex-grow: 1 !important; /* 남은 공간을 예쁘게 다 차지하도록 설정 */
+  background: #b19cd9 !important; 
+  color: #ffffff !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+  font-size: 18px !important;
   font-weight: 900 !important;
-  text-align: center !important;
-  box-shadow: 0 8px 24px rgba(177, 156, 217, 0.4) !important;
-  border: 2px solid #ffffff !important;
+  border: none !important;
+  box-shadow: 0 6px 16px rgba(177, 156, 217, 0.4) !important;
   transition: all 0.2s ease !important;
-  justify-content: center !important;
+  cursor: pointer !important;
 }
 
 html:not(.dark) #btnStart:hover {
-  transform: translateY(-4px) !important;
+  transform: translateY(-2px) !important;
   background: #a38cc6 !important;
-  box-shadow: 0 12px 32px rgba(177, 156, 217, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(177, 156, 217, 0.6) !important;
 }
 
-/* 보조 버튼들 (화이트 바탕에 라벤더 선) */
+/* 기타 서브 버튼들 (샵, 섞기 등) */
 html:not(.dark) .actions button:not(#btnStart),
 html:not(.dark) .actions a.btn {
   background-color: #ffffff !important;
-  border: 1px solid #d8b4fe !important;
-  color: #8b5cf6 !important;
-  font-weight: 700 !important;
-}
-
-/* 5. 기타 옵션 패널들 (화이트 & 연라벤더) */
-html:not(.dark) .map-picker select,
-html:not(.dark) .row-toggles {
-  background-color: #ffffff !important;
   border: 1px solid #e9d5ff !important;
-  border-radius: 14px !important;
+  border-radius: 12px !important;
   color: #8b5cf6 !important;
   font-weight: 700 !important;
+  padding: 10px 16px !important;
 }
 
-html:not(.dark) .btn-group {
-  background-color: #f5f3ff !important;
-  border-radius: 14px !important;
-  padding: 6px !important;
-}
-
-html:not(.dark) .btn-group button,
-html:not(.dark) .btn-group input {
-  color: #a78bfa !important;
-  border-radius: 10px !important;
-  font-weight: 800 !important;
-  border: none !important;
-}
-
-/* 당첨 순위 탭 활성화 (라벤더 바탕에 화이트 글씨) */
-html:not(.dark) .btn-group button.active {
-  background-color: #b19cd9 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(177, 156, 217, 0.3) !important;
-}
-
-/* 아이콘 톤 맞춤 */
 html:not(.dark) i.icon {
   filter: sepia(1) hue-rotate(220deg) saturate(1.5) brightness(1.2) opacity(0.7) !important;
 }
