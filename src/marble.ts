@@ -7,6 +7,24 @@ import { transformGuard } from './utils/transformGuard';
 import { rad } from './utils/utils';
 import { Vector } from './utils/Vector';
 
+// 💡 1. 몽나와 달구 이미지를 배열에 담아 무한 로테이션 시킵니다!
+// 지금은 2개지만, 나중에 사진을 더 추가하고 싶으시면 아래 배열에 10개든 20개든 줄줄이 적어주시면 됩니다.
+const skinUrls = [
+  'assets/mongna-ball.png', // 1번 공
+  'assets/dalgu-ball.png',  // 2번 공
+  // 👇 나중에 이미지가 더 생기면 아래처럼 쭉쭉 추가하세요! (최대 제한 없음)
+  // 'assets/mongna-smile.png',
+  // 'assets/dalgu-angry.png',
+  // 'assets/mongna-sad.png',
+];
+
+// 위에서 적은 주소들을 실제 이미지로 변환해 두는 작업
+const skins = skinUrls.map(url => {
+  const img = new Image();
+  img.src = url;
+  return img;
+});
+
 export class Marble {
   type = 'marble' as const;
   name: string = '';
@@ -72,18 +90,9 @@ export class Marble {
     physics.createMarble(order, 10.25 + (order % 10) * 0.6, maxLine - line + lineDelta);
   }
 
-  /**
-   * @param deltaTime 벽시계 기준 경과(ms). 스킬 쿨타임 등 연출 시간에 쓴다
-   * @param timeScale 이 틱에서 물리가 실제로 진행된 비율(슬로모션이면 1 미만).
-   *   정지 판정은 이동 거리로 하므로 물리 시간에 맞춰 문턱을 줄여야 한다. 안 그러면 슬로모션 중
-   *   천천히 구르는 구슬이 멈춘 것으로 오판되어 골인 직전에 랜덤으로 튕겨진다
-   */
   update(deltaTime: number, timeScale: number = 1) {
     const stuckThreshold = 0.00001 * timeScale * timeScale;
     if (this.isActive && Vector.lenSq(Vector.sub(this.lastPosition, this.position)) < stuckThreshold) {
-      // 누적에는 timeScale 을 곱하지 않는다. 이건 화면이 굳는 걸 막는 워치독이라 관객 체감 시간이 기준이다.
-      // 물리 시간으로 바꾸면 슬로모션이 깊을수록 발동이 늦어지는데, 타겟 구슬이 멈추면 _goalDist 가 고정되어
-      // 슬로모션이 풀리지 않으므로 교착을 깨야 할 상황에서 워치독이 오히려 무뎌진다
       this._stuckTime += deltaTime;
 
       if (this._stuckTime > STUCK_DELAY) {
@@ -165,11 +174,21 @@ export class Marble {
   private _renderNormal(ctx: CanvasRenderingContext2D, zoom: number, outline: boolean, skin?: CanvasImageSource) {
     const hs = this.size / 2;
 
-    ctx.fillStyle = `hsl(${this.hue} 100% ${this.theme.marbleLightness + 25 * Math.min(1, this.impact / 500)}%`;
+    ctx.fillStyle = `hsl(${this.hue} 100% ${this.theme.marbleLightness + 25 * Math.min(1, this.impact / 500)}%)`;
 
-    // ctx.shadowColor = this.color;
-    // ctx.shadowBlur = zoom / 2;
-    if (skin) {
+    // 💡 2. 로테이션 핵심 계산식
+    // id(공 번호)를 skins 배열의 길이(현재 2개, 10개면 10개)로 나눈 '나머지'를 구합니다.
+    // 공이 100개가 떨어져도 우리가 등록한 1번~10번 이미지가 계속 뱅글뱅글 돌아가면서 적용됩니다.
+    const skinIndex = this.id % skins.length;
+    const customSkin = skins[skinIndex];
+
+    if (customSkin && customSkin.complete && customSkin.naturalWidth > 0) {
+      transformGuard(ctx, () => {
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.drawImage(customSkin, -hs, -hs, hs * 2, hs * 2);
+      });
+    } else if (skin) {
       transformGuard(ctx, () => {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
@@ -181,6 +200,7 @@ export class Marble {
 
     ctx.shadowColor = '';
     ctx.shadowBlur = 0;
+    
     this._drawName(ctx, zoom);
 
     if (outline) {
