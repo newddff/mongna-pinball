@@ -130,8 +130,6 @@ div.copyright a {
 
   textarea {
     width: 100%;
-    // 오른쪽 칼럼이 패널 높이를 결정하면 '여러명'을 열 때 범위 행(div.row, 35px)만큼
-    // 패널이 세로로 튄다. 왼쪽이 항상 더 크도록 그만큼 미리 확보해 높이를 고정한다
     min-height: calc(5rem + 35px);
     border: none;
     background: #999;
@@ -158,7 +156,6 @@ div.copyright a {
     }
   }
 
-  // <a class="btn">가 <button>과 같은 크기/모양으로 보이도록
   a.btn {
     text-decoration: none;
     font-size: 10pt;
@@ -220,7 +217,6 @@ div.copyright a {
         align-items: center;
       }
 
-      // div.right div.row 와 같은 자리에 두어야 display:flex 를 이긴다
       &.row-range {
         display: none;
 
@@ -249,7 +245,6 @@ div.copyright a {
     background: #999;
   }
 
-  // 맵 선택 + 받은 맵 삭제 + 맵 공유마당 바로가기
   .map-picker {
     display: flex;
     align-items: center;
@@ -332,8 +327,6 @@ div.copyright a {
   .btn-group {
     display: flex;
     justify-content: stretch;
-    // number input의 기본 폭(~169px)이 intrinsic 폭에 들어가 오른쪽 칼럼을 넓히지 않도록
-    // width를 0으로 누르고, 대신 그룹이 행의 남는 폭을 채우게 한다
     flex: 1 1 0;
     min-width: 0;
 
@@ -565,9 +558,7 @@ div.copyright a {
     div.notice-body {
       flex-grow: 1;
     }
-
   }
-
 }
 
 div.toast {
@@ -646,7 +637,7 @@ div.toast {
 }
 
 /* =========================================================
-   🕊️ 몽나 시그니처 테마 (라벤더 & 화이트 안전 복구 버전)
+   🕊️ 몽나 시그니처 테마 (라벤더 & 화이트 + 슬림한 사이즈 적용)
    ========================================================= */
 
 /* 1. 배경: 깨끗한 화이트톤에 아주 연한 라벤더 도트 */
@@ -656,63 +647,31 @@ html:not(.dark) body {
   background-size: 24px 24px !important;
 }
 
-/* 2. 설정창 전체 뼈대 복구 (하나의 통일된 고급스러운 카드로 묶기) */
+/* 2. 설정창 전체 크기 대폭 축소 (콤팩트한 카드형) */
 html:not(.dark) #settings {
-  display: block !important; /* 억지로 쪼개던 속성 제거 */
+  display: block !important;
   background: #ffffff !important;
   border: 1px solid #f3f0ff !important;
-  border-radius: 24px !important;
-  padding: 24px !important;
-  box-shadow: 0 12px 40px rgba(177, 156, 217, 0.15) !important;
-  max-width: 650px !important; 
+  border-radius: 20px !important;
+  padding: 16px !important;
+  box-shadow: 0 8px 24px rgba(177, 156, 217, 0.15) !important;
+  max-width: 440px !important; 
 }
 
-/* 3. 상단 맵/옵션 선택 영역 정상화 */
-html:not(.dark) .map-picker select,
-html:not(.dark) .row-toggles {
-  background-color: #fcfbfe !important;
-  border: 1px solid #e9d5ff !important;
-  border-radius: 12px !important;
-  color: #7c3aed !important;
-  font-weight: 700 !important;
-}
-
-/* 당첨 순위 선택 버튼 (첫번째, 마지막) */
-html:not(.dark) .btn-group {
-  background-color: #f5f3ff !important;
-  border-radius: 10px !important;
-  padding: 4px !important;
-}
-
-html:not(.dark) .btn-group button,
-html:not(.dark) .btn-group input {
-  color: #a78bfa !important;
-  border-radius: 8px !important;
-  font-weight: 800 !important;
-  border: none !important;
-}
-
-html:not(.dark) .btn-group button.active {
-  background-color: #b19cd9 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 8px rgba(177, 156, 217, 0.3) !important;
-}
-
-/* 4. 텍스트 입력창: 화이트 바탕에 라벤더 점선 */
+/* 3. 텍스트 입력창 슬림화 */
 html:not(.dark) #in_names {
   background-color: #ffffff !important;
   border: 2px dashed #c4b5fd !important; 
   border-radius: 12px !important;
   color: #7c3aed !important;
   font-weight: 700 !important;
-  font-size: 16px !important;
-  padding: 16px !important;
-  min-height: 180px !important;
+  font-size: 15px !important;
+  padding: 12px !important;
+  min-height: 120px !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  margin-top: 16px !important;
+  margin-top: 10px !important;
   
-  /* 💡 라벤더색 몽나 워터마크 */
   background-image: url('https://via.placeholder.com/150/ffffff/c4b5fd?text=Mongna'); 
   background-repeat: no-repeat;
   background-position: center center;
@@ -723,50 +682,65 @@ html:not(.dark) #in_names:focus {
   border: 2px solid #b19cd9 !important;
   background-image: none !important; 
   outline: none !important;
-  box-shadow: 0 0 0 4px rgba(177, 156, 217, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(177, 156, 217, 0.15) !important;
 }
 
-/* 5. 꼬여버린 하단 바 및 버튼 완벽 정렬 */
+/* 4. 버튼 영역 정렬 */
 html:not(.dark) .actions {
   display: flex !important;
-  gap: 12px !important;
-  margin-top: 20px !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
   flex-wrap: wrap !important;
   align-items: center !important;
 }
 
-/* 🚀 몽나 시그니처 시작 버튼 (가로로 넓게 꽉 채우기) */
+/* 🚀 시작 버튼 */
 html:not(.dark) #btnStart {
-  flex-grow: 1 !important; /* 남은 공간을 예쁘게 다 차지하도록 설정 */
+  flex-grow: 1 !important;
   background: #b19cd9 !important; 
   color: #ffffff !important;
-  padding: 16px !important;
-  border-radius: 16px !important;
-  font-size: 18px !important;
+  padding: 12px !important;
+  border-radius: 12px !important;
+  font-size: 16px !important;
   font-weight: 900 !important;
   border: none !important;
-  box-shadow: 0 6px 16px rgba(177, 156, 217, 0.4) !important;
-  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(177, 156, 217, 0.4) !important;
   cursor: pointer !important;
 }
 
 html:not(.dark) #btnStart:hover {
   transform: translateY(-2px) !important;
   background: #a38cc6 !important;
-  box-shadow: 0 8px 24px rgba(177, 156, 217, 0.6) !important;
 }
 
-/* 기타 서브 버튼들 (샵, 섞기 등) */
+/* 서브 버튼들 */
 html:not(.dark) .actions button:not(#btnStart),
 html:not(.dark) .actions a.btn {
   background-color: #ffffff !important;
   border: 1px solid #e9d5ff !important;
-  border-radius: 12px !important;
+  border-radius: 10px !important;
   color: #8b5cf6 !important;
   font-weight: 700 !important;
-  padding: 10px 16px !important;
+  padding: 8px 12px !important;
 }
 
-html:not(.dark) i.icon {
-  filter: sepia(1) hue-rotate(220deg) saturate(1.5) brightness(1.2) opacity(0.7) !important;
+/* 5. 글씨가 안 보이던 문제 해결 (선명한 진보라색으로 고정) */
+html:not(.dark) #settings div.right div.row label,
+html:not(.dark) #settings label,
+html:not(.dark) #settings span,
+html:not(.dark) #settings .btn-toggle-settings {
+  color: #6d28d9 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) #settings .row-toggles label,
+html:not(.dark) #settings .toggle-item {
+  color: #5b21b6 !important;
+  font-weight: 700 !important;
+}
+
+/* 아이콘 톤 선명하게 */
+html:not(.dark) #settings .icon {
+  color: #7c3aed !important;
+  filter: none !important;
 }
